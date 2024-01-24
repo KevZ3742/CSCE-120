@@ -40,6 +40,19 @@ int main() {
     // ONLY MAKE CHANGES WHERE THERE IS A TODO
 
     // TODO(student): declare and initialize variables that you want
+    float examSum = 0;
+    float hwSum = 0;
+    float engagementSum = 0;
+    float readingSum = 0;
+    float lwSum = 0; 
+
+    int examCount = 0;
+    int hwCount = 0;
+    int engagementCount = 0;
+    int readingCount = 0;
+    int lwCount = 0;
+
+    bool tookFinal = false;
 
     string line;
     // read one line from standard input (discards the ending newline character)
@@ -52,17 +65,24 @@ int main() {
 
         // process the grade entry
         if (category == "exam") {
-            // TODO(student): process exam score
+            examSum += score;
+            examCount++;
         } else if (category == "final-exam") {
-            // TODO(student): process final score
+            tookFinal = true;
+            examSum += score;
+            examCount++;
         } else if (category == "hw") {
-            // TODO(student): process hw score
+            hwSum += score;
+            hwCount++;
         } else if (category == "lw") {
-            // TODO(student): process lw score
+            lwSum += score;
+            lwCount++;
         } else if (category == "reading") {
-            // TODO(student): process reading score
+            readingSum += score;
+            readingCount++;
         } else if (category == "engagement") {
-            // TODO(student): process engagement score
+            engagementSum += score;
+            engagementCount++;
         }else {
             cout << "ignored invalid input" << endl;
         }
@@ -72,17 +92,54 @@ int main() {
     }
 
     // TODO(student): compute component averages
-    double exam_average = 0;
-    double hw_average = 0;
-    double lw_average = 0;
-    double reading = 0;
-    double engagement = 0;
+    if (!tookFinal)
+    {
+        examCount++;
+    }
+    
+
+    double exam_average = examSum / examCount;
+    double hw_average = hwSum / hwCount;
+    double lw_average = lwSum / lwCount * 100;
+    double reading = readingSum / readingCount + 15;
+    double engagement = engagementSum / engagementCount + 15;
+
+    if (reading > 100)
+    {
+        reading = 100;
+    }
+
+    if (engagement > 100)
+    {
+        engagement = 100;
+    }
 
     // TODO(student): compute weighted total of components
-    double weighted_total = 0;
+    double weighted_total = hw_average * .4 + lw_average * .1 + exam_average * .4 + reading * .05 + engagement * .05;
 
     // TODO(student): compute final letter grade
     char final_letter_grade = 'X';
+
+    if (weighted_total >= 90)
+    {
+        final_letter_grade = 'A';
+    }
+    else if (weighted_total >= 80)
+    {
+        final_letter_grade = 'B';
+    }
+    else if (weighted_total >= 70)
+    {
+        final_letter_grade = 'C';
+    }
+    else if (weighted_total >= 60)
+    {
+        final_letter_grade = 'D';
+    }
+    else
+    {
+        final_letter_grade = 'F';
+    }
 
     print_results(
         exam_average, hw_average, lw_average, reading, engagement,
