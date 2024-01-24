@@ -53,6 +53,7 @@ int main() {
     int lwCount = 0;
 
     bool tookFinal = false;
+    float finalExam = 0;
 
     string line;
     // read one line from standard input (discards the ending newline character)
@@ -69,6 +70,7 @@ int main() {
             examCount++;
         } else if (category == "final-exam") {
             tookFinal = true;
+            finalExam += score;
             examSum += score;
             examCount++;
         } else if (category == "hw") {
@@ -97,12 +99,50 @@ int main() {
         examCount++;
     }
     
+    if (examCount == 0)
+    {
+        examCount = 1;
+    }
+
+    if (hwCount == 0)
+    {
+        hwCount = 1;
+    }
+
+    if (lwCount == 0)
+    {
+        lwCount = 1;
+    }
+
+    bool addReading = true;
+    if (readingCount == 0)
+    {
+        readingCount = 1;
+        addReading = false;
+    }
+
+    bool addeEngagement = true;
+    if (engagementCount == 0)
+    {
+        engagementCount = 1;
+        addeEngagement = false;
+    }
 
     double exam_average = examSum / examCount;
     double hw_average = hwSum / hwCount;
     double lw_average = lwSum / lwCount * 100;
-    double reading = readingSum / readingCount + 15;
-    double engagement = engagementSum / engagementCount + 15;
+    double reading = readingSum / readingCount;
+    double engagement = engagementSum / engagementCount;
+
+    if (addReading)
+    {
+        reading += 15;
+    }
+
+    if (addeEngagement)
+    {
+        engagement += 15;
+    }
 
     if (reading > 100)
     {
@@ -113,6 +153,11 @@ int main() {
     {
         engagement = 100;
     }
+
+    if (exam_average < finalExam)
+    {
+        exam_average = finalExam;
+    }  
 
     // TODO(student): compute weighted total of components
     double weighted_total = hw_average * .4 + lw_average * .1 + exam_average * .4 + reading * .05 + engagement * .05;
