@@ -10,8 +10,8 @@ void printNOT()
 
     cout << " x | NOT x" << endl;
     cout << "---+-------" << endl;
-    cout << " 0 |   ?" << endl;
-    cout << " 1 |   ?" << endl;
+    cout << " 0 |   1" << endl;
+    cout << " 1 |   0" << endl;
 
     cout << endl;
 }
@@ -23,10 +23,10 @@ void printOR()
 
     cout << " x | y | x OR y" << endl;
     cout << "---+---+--------" << endl;
-    cout << " 0 | 0 |   ?" << endl;
-    cout << " 0 | 1 |   ?" << endl;
-    cout << " 1 | 0 |   ?" << endl;
-    cout << " 1 | 1 |   ?" << endl;
+    cout << " 0 | 0 |   0" << endl;
+    cout << " 0 | 1 |   1" << endl;
+    cout << " 1 | 0 |   1" << endl;
+    cout << " 1 | 1 |   1" << endl;
 
     cout << endl;
 }
@@ -38,10 +38,10 @@ void printAND()
 
     cout << " x | y | x AND y" << endl;
     cout << "---+---+---------" << endl;
-    cout << " 0 | 0 |    ?" << endl;
-    cout << " 0 | 1 |    ?" << endl;
-    cout << " 1 | 0 |    ?" << endl;
-    cout << " 1 | 1 |    ?" << endl;
+    cout << " 0 | 0 |    0" << endl;
+    cout << " 0 | 1 |    0" << endl;
+    cout << " 1 | 0 |    0" << endl;
+    cout << " 1 | 1 |    1" << endl;
 
     cout << endl;
 }
@@ -53,10 +53,10 @@ void printXOR()
 
     cout << " x | y | x XOR y" << endl;
     cout << "---+---+---------" << endl;
-    cout << " 0 | 0 |    ?" << endl;
-    cout << " 0 | 1 |    ?" << endl;
-    cout << " 1 | 0 |    ?" << endl;
-    cout << " 1 | 1 |    ?" << endl;
+    cout << " 0 | 0 |    0" << endl;
+    cout << " 0 | 1 |    1" << endl;
+    cout << " 1 | 0 |    1" << endl;
+    cout << " 1 | 1 |    0" << endl;
 
     cout << endl;
 }
@@ -65,7 +65,7 @@ bool booleanLogic1(bool x, bool y, bool z)
 {
     cout << "--- Boolean Logic 1 ---" << endl;
 
-    bool value = false; // TODO: Fill this in
+    bool value = x || y || z; // TODO: Fill this in
     cout << boolalpha << x << " OR " << y << " OR " << z << " = " << value << endl;
 
     cout << endl;
@@ -76,7 +76,7 @@ bool booleanLogic2(bool x, bool y, bool z)
 {
     cout << "--- Boolean Logic 2 ---" << endl;
 
-    bool value = false; // TODO: Fill this in
+    bool value = x && y && z; // TODO: Fill this in
     cout << boolalpha << x << " AND " << y << " AND " << z << " = " << value << endl;
 
     cout << endl;
@@ -87,7 +87,7 @@ bool booleanLogic3(bool x, bool y, bool z)
 {
     cout << "--- Boolean Logic 3 ---" << endl;
 
-    bool value = false; // TODO: Fill this in
+    bool value = x ^ y ^ z; // TODO: Fill this in
     cout << boolalpha << x << " XOR " << y << " XOR " << z << " = " << value << endl;
 
     cout << endl;
@@ -101,8 +101,8 @@ unsigned int countLetters(std::string str)
     cout << "--- count Letters ---" << endl;
 
     unsigned int count = 0;
-    for (unsigned int i=0; i<str.size(); ++i) {
-        if (isalpha(str.at(i)) == true) {
+    for (unsigned int i=0; i<str.size(); i++) {
+        if (isalpha(str.at(i)) != 0) {
             count++;
         }
     }
@@ -113,7 +113,7 @@ bool f(bool x, bool y, bool z)
 {
     cout << "--- f ---" << endl;
 
-    bool boolVal = false; // TODO: Fill this in
+    bool boolVal = (!x && !y && z) or (!x and y and !z) or (!x and y and z) or (x and !y and !z) or (x and y and z); // TODO: Fill this in
     return boolVal;
 }
 
@@ -126,9 +126,9 @@ void setAssignments(bool &w, bool &x, bool &y, bool &z)
     // TODO: Assign boolean values the four variables so that
     //   the boolean formula calcualtes to true
     w = false;
-    x = false;
-    y = false;
-    z = false;
+    x = true;
+    y = true;
+    z = true;
 }
 
 
