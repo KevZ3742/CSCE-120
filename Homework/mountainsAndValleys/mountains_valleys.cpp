@@ -16,12 +16,14 @@ int main() {
         cout << "Enter numbers 10 <= a <= b < 10000: ";
         cin >> a >> b;
 
-        if (is_valid_range(a, b)) {
-            cout << "Invalid Input";
+        if (!is_valid_range(a, b)) {
+            cout << "Invalid Input\n";
         }
-    } while (is_valid_range(a, b));
+    } while (!is_valid_range(a, b));
 
 	// TODO(student): compute and display solution
+
+	count_valid_mv_numbers(a, b);
 	
 	return 0;
 }
