@@ -32,18 +32,32 @@ using std::cin; using std::cout; using std::endl;
 int main()
 {
     // TODO: create arrays needed
-	
-    // TOTO: prep all arrays
-	
-    // TODO: load the runner's data into the array
+	double timeArray[SIZE];
+    char countryArray[SIZE][STRING_SIZE];
+    unsigned int numberArray[SIZE];
+    char lastnameArray[SIZE][STRING_SIZE];
+    unsigned int rankArray[SIZE];
 
-    // if unable to load runner data
-    //   1) output "Bad input" to standard out
-    //   2) exit program by returning 1
+    // TOTO: prep all arrays
+	prep_double_array(timeArray);
+    prep_unsigned_int_array(numberArray);
+    prep_string_array(countryArray);
+    prep_string_array(lastnameArray);
+    prep_unsigned_int_array(rankArray);
+
+    // TODO: load the runner's data into the array
+    if (!get_runner_data(timeArray, countryArray, numberArray, lastnameArray))
+    {
+        // If unable to load runner data
+        cout << "Bad input" << endl; // Output "Bad input" to standard out
+        return 1; // Exit program by returning 1
+    }
 
     // TODO: determine ranking, notice the rank array receives the results
+    get_ranking(timeArray, rankArray);
 
     // TODO: Output results
+    print_results(timeArray, countryArray, lastnameArray, rankArray);
 
     // this is not required in C++ but many people still explitly add it
     return 0; 
