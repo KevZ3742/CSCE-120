@@ -4,6 +4,16 @@ using std::cin, std::cout, std::endl, std::ostream, std::string;
 #define INFO(X)  cout << "[INFO] ("<<__FUNCTION__<<":"<<__LINE__<<") " << #X << " = " << X << endl;
 #define INFO_STRUCT(X) cout << "[INFO] ("<<__FUNCTION__<<":"<<__LINE__<<") " << #X << " count = " << X.count << endl;
 
+void resize(Stack& stack, int new_capacity) {
+    int* new_numbers = new int[new_capacity];
+    for (int i = 0; i < stack.count; ++i) {
+        new_numbers[i] = stack.numbers[i];
+    }
+    delete[] stack.numbers;
+    stack.numbers = new_numbers;
+    stack.capacity = new_capacity;
+}
+
 /**
  * ----- REQUIRED -----
  * Pushes number to top of stack. If stack is full, then resize stack's array.
@@ -11,9 +21,11 @@ using std::cin, std::cout, std::endl, std::ostream, std::string;
  * @param   number  Number to push to stack.
  */
 void push(Stack& stack, int number) {
-  // TODO: implement push function for stack
-  INFO_STRUCT(stack);
-  INFO(number);
+    if (stack.count == stack.capacity) {
+        int new_capacity = std::max(stack.capacity * 2, 1);
+        resize(stack, new_capacity);
+    }
+    stack.numbers[stack.count++] = number;
 }
 
 /**
@@ -23,9 +35,10 @@ void push(Stack& stack, int number) {
  * @return          Value of popped number.
  */
 int pop(Stack& stack) {
-  // TODO: implement pop function for stack
-  INFO_STRUCT(stack);
-  return 0;
+    if (stack.count == 0) {
+        return INT32_MAX;
+    }
+    return stack.numbers[--stack.count];
 }
 
 /**
@@ -35,7 +48,8 @@ int pop(Stack& stack) {
  * @return          Number at top of stack.
  */
 int peek(const Stack& stack) {
-  // TODO: implement peek function for stack
-  INFO_STRUCT(stack);
-  return 0;
+    if (stack.count == 0) {
+        return INT32_MAX;
+    }
+    return stack.numbers[stack.count - 1];
 }
