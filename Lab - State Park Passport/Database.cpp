@@ -3,6 +3,7 @@
 using std::string, std::vector;
 
 // TODO: implement constructor using member initializer list
+Database::Database() {}
 
 Database::~Database() {
 	for (unsigned int i = 0; i < stateParkList.size(); ++i) {
@@ -20,8 +21,8 @@ void Database::addStatePark(string parkName, double entranceFee, double trailMil
 	INFO(trailMiles)
 
 	// TODO: implement function
-
-	return;
+	StatePark* newPark = new StatePark(parkName, entranceFee, trailMiles);
+    stateParkList.push_back(newPark);
 }
 
 void Database::addPassport(string camperName, bool isJuniorPassport) {
@@ -29,8 +30,8 @@ void Database::addPassport(string camperName, bool isJuniorPassport) {
 	INFO(isJuniorPassport)
 
 	// TODO: implement function
-
-	return;
+	Passport* newPassport = new Passport(camperName, isJuniorPassport);
+    camperList.push_back(newPassport);
 }
 
 void Database::addParkToPassport(string camperName, string parkName) {
@@ -38,8 +39,16 @@ void Database::addParkToPassport(string camperName, string parkName) {
 	INFO(parkName)
 
 	// TODO: implement function
-
-	return;
+	for (Passport* passport : camperList) {
+        if (passport->getCamperName() == camperName) {
+            for (StatePark* park : stateParkList) {
+                if (park->getParkName() == parkName) {
+                    passport->addParkVisited(park);
+                    return;
+                }
+            }
+        }
+    }
 }
 
 vector<string> Database::getParksInRevenueRange(double lowerBound, double upperBound) {
@@ -47,14 +56,29 @@ vector<string> Database::getParksInRevenueRange(double lowerBound, double upperB
 	INFO(upperBound)
 
 	// TODO: (optional) implement function
-	
-	return {};
+	std::vector<std::string> parks;
+
+    for (StatePark* park : stateParkList) {
+        double revenue = park->getRevenue();
+        if (revenue >= lowerBound && revenue <= upperBound) {
+            parks.push_back(park->getParkName());
+        }
+    }
+
+    return parks;
 }
 
 vector<string> Database::getHikersAtLeastLevel(int level) {
 	INFO(level)
 
 	// TODO: (optional) implement function
+	std::vector<std::string> hikers;
 
-	return {};
+    for (Passport* passport : camperList) {
+        if (passport->getHikerLevel() >= level) {
+            hikers.push_back(passport->getCamperName());
+        }
+    }
+
+    return hikers;
 }

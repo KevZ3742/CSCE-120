@@ -1,37 +1,36 @@
-# include "Passport.h"
+#include "Passport.h"
 
-using std::string, std::vector;
+Passport::Passport(std::string camperName, bool isJuniorPassport) : camperName(camperName), isJuniorPassport(isJuniorPassport) {}
 
-// TODO: implement constructor using member initializer list
-
-string Passport::getCamperName() {
-	// TODO: implement getter
-
-	return "";
+std::string Passport::getCamperName() {
+    return camperName;
 }
 
 bool Passport::checkJuniorPassport() {
-	// TODO: implement getter
-
-	return false;
+    return isJuniorPassport;
 }
 
 void Passport::addParkVisited(StatePark* park) {
-	INFO(park)
-
-	// TODO: implement function
-
-	return;
+    parksVisited.push_back(park);
 }
 
 double Passport::getMilesHiked() {
-	// TODO: (optional) implement function
-
-	return 0.0;
+    double totalMiles = 0.0;
+    for (StatePark* park : parksVisited) {
+        totalMiles += park->getTrailMiles();
+    }
+    return totalMiles;
 }
 
 int Passport::getHikerLevel() {
-	// TODO: (optional) implement function
-
-	return 0;
+    double milesHiked = getMilesHiked();
+    if (milesHiked < 10.0) {
+        return 1;
+    } else if (milesHiked < 20.0) {
+        return 2;
+    } else if (milesHiked < 30.0) {
+        return 3;
+    } else {
+        return 4;
+    }
 }

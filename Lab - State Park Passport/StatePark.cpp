@@ -1,37 +1,27 @@
-# include "Passport.h"
+# include "StatePark.h"
 
-using std::string, std::vector;
+StatePark::StatePark(std::string parkName, double entranceFee, double trailMiles) : parkName(parkName), entranceFee(entranceFee), trailMiles(trailMiles) {}
 
-// TODO: implement constructor using member initializer list
-
-string StatePark::getParkName() {
-	// TODO: implement getter
-
-	return "";
+std::string StatePark::getParkName() {
+    return parkName;
 }
 
 double StatePark::getEntranceFee() {
-	// TODO: implement getter
-
-	return 0.0;
+    return entranceFee;
 }
 
 double StatePark::getTrailMiles() {
-	// TODO: implement getter
-	
-	return 0.0;
+    return trailMiles;
 }
 
 void StatePark::addCamper(Passport* camper) {
-	INFO(camper)
-
-	// TODO: implement function
-
-	return;
+    camperLog.push_back(camper);
 }
 
 double StatePark::getRevenue() {
-	// TODO: (optional) implement function
-
-	return 0.0;
+    double totalRevenue = 0.0;
+    for (Passport* camper : camperLog) {
+        totalRevenue += entranceFee;
+    }
+    return totalRevenue;
 }
